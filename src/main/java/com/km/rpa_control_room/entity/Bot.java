@@ -26,4 +26,44 @@ public class Bot {
 
     @Column(name = "uploadedBy")
     private String uploadedBy;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long theId) {
+        id = theId;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String theFilePath) {
+        filePath = theFilePath;
+    }
+
+    public String getBotName() {
+        return botName;
+    }
+
+    public void setBotName(String theBotName) {
+        botName = theBotName;
+    }
+
+    public String getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(String theFileType) {
+        fileType = theFileType;
+    }
+
+    public String getUploadedBy() {
+        return uploadedBy;
+    }
+
+    public void setUploadedBy(String theUploadedBy) {
+        uploadedBy = theUploadedBy;
+    }
 }
