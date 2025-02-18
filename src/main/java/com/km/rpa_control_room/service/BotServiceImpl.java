@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.km.rpa_control_room.dao.BotRepository;
 import com.km.rpa_control_room.entity.Bot;
 
+@Service
 public class BotServiceImpl implements BotService {
 
     private BotRepository botRepository;
@@ -23,8 +25,7 @@ public class BotServiceImpl implements BotService {
 
     @Override
     public List<Bot> findAll(){
-
-        return botRepository.findAllByOrderByUploadTimeDesc(); 
+        return botRepository.findAllByOrderByBotNameDesc(); 
     }
 
     @Override
@@ -44,5 +45,13 @@ public class BotServiceImpl implements BotService {
         return theBot;
     }
 
-    
+    @Override
+    public Bot save(Bot theBot){
+        return botRepository.save(theBot);
+    }
+
+    @Override
+    public void deleteById(Long theId){
+        botRepository.deleteById(theId);
+    }
 }
