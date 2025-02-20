@@ -67,16 +67,16 @@ public class Bot {
     public void setFileType(String theFileType) {
         fileType = theFileType;
     }
-    // public String getUploader() {
-    //     return uploader;
-    // }
-    // public void setUploader(String theUploader) {
-    //     uploader = theUploader;
-    // }
+    public LocalDateTime getUploadTime(){
+        return uploadTime;
+    }
+    public void setUploadTime(LocalDateTime theUploadTime){
+        uploadTime = theUploadTime;
+    }
 
     @Override
     public String toString() {
         return "Bot [id=" + id + ", filePath=" + filePath + ", name=" + name + ", fileType=" + fileType
-                + ", uploader=";
+                + "uploadTime="+uploadTime;
     }
 }
