@@ -1,5 +1,7 @@
 package com.km.rpa_control_room.entity;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,25 +20,27 @@ public class Bot {
     @Column(name = "file_path")
     private String filePath;
 
-    @Column(name = "bot_name")
-    private String botName;
+    @Column(name = "name")
+    private String name;
 
     @Column(name = "file_type")
     private String fileType;
 
-    @Column(name = "uploader")
-    private String uploader;
+    // @Column(name = "uploader")
+    // private String uploader;
+
+    @Column(name = "upload_time")
+    private LocalDateTime uploadTime;
 
     public Bot(){}
 
-    public Bot(Long theId, String theFilePath, String theBotName,
-                String theFileType, String theUploader){
+    public Bot(String theFilePath, String theName,
+                String theFileType, LocalDateTime theUploadTime){
             
-            id = theId;
-            filePath = theFilePath;
-            botName = theBotName;
-            fileType = theFileType;
-            uploader = theUploader;
+        filePath = theFilePath;
+        name = theName;
+        fileType = theFileType;
+        uploadTime = theUploadTime;
     }
 
     public Long getId() {
@@ -51,11 +55,11 @@ public class Bot {
     public void setFilePath(String theFilePath) {
         filePath = theFilePath;
     }
-    public String getBotName() {
-        return botName;
+    public String getName() {
+        return name;
     }
-    public void setBotName(String theBotName) {
-        botName = theBotName;
+    public void setName(String theName) {
+        name = theName;
     }
     public String getFileType() {
         return fileType;
@@ -63,16 +67,16 @@ public class Bot {
     public void setFileType(String theFileType) {
         fileType = theFileType;
     }
-    public String getUploader() {
-        return uploader;
-    }
-    public void setUploader(String theUploader) {
-        uploader = theUploader;
-    }
+    // public String getUploader() {
+    //     return uploader;
+    // }
+    // public void setUploader(String theUploader) {
+    //     uploader = theUploader;
+    // }
 
     @Override
     public String toString() {
-        return "Bot [id=" + id + ", filePath=" + filePath + ", botName=" + botName + ", fileType=" + fileType
-                + ", uploader=" + uploader + "]";
+        return "Bot [id=" + id + ", filePath=" + filePath + ", name=" + name + ", fileType=" + fileType
+                + ", uploader=";
     }
 }

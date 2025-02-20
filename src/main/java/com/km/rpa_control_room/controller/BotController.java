@@ -2,17 +2,20 @@ package com.km.rpa_control_room.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.km.rpa_control_room.dto.BotDTO;
 import com.km.rpa_control_room.entity.Bot;
 import com.km.rpa_control_room.service.BotService;
 
@@ -42,23 +45,34 @@ public class BotController{
     }
 
     @PostMapping("/upload")
-    public ResponseEntity<String> uploadBot(@RequestParam("file") MultipartFile file,
-                                            @RequestParam("uploader") String uploader){
+    public ResponseEntity<String> uploadBot(@ModelAttribute BotDTO botDTO){
 
-        String fileName = file.getOriginalFilename();
+        System.out.println("Have received the request " + botDTO);
 
-        String fileType = fileName.substring(fileName.lastIndexOf(".")+1);
+        String botName = botDTO.getName();
 
-        String botName = fileName.substring(0, fileName.lastIndexOf("."));
+        MultipartFile theFile = botDTO.getFile();
 
-        String filePath = BOT_STORAGE_DIRECTORY + "fileName";
+        if(theFile ==  null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("File is empty!");
+        }
+
+        String orginalFileName = theFile.getOriginalFilename();
+
+        String filePath = BOT_STORAGE_DIRECTORY + orginalFileName;
 
         try{
-            file.transferTo(new File(filePath));
+            botDTO.getFile().transferTo(new File(filePath));
         }catch(IOException ioe){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload file");
         }
 
-        Bot bot = new Bot(filePath, botName, fileType, uploader, file);
+        String fileType = orginalFileName.substring(orginalFileName.lastIndexOf(".") + 1);
+        
+        Bot theBot = new Bot(filePath, botName, fileType, LocalDateTime.now());
+
+        botService.save(theBot);
+
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body("Bot uploaded");
     }
 }

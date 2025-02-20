@@ -25,7 +25,7 @@ public class BotServiceImpl implements BotService {
 
     @Override
     public List<Bot> findAll(){
-        return botRepository.findAllByOrderByBotNameDesc(); 
+        return botRepository.findAllByOrderByNameDesc(); 
     }
 
     @Override

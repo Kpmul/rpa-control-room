@@ -4,49 +4,31 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class BotDTO {
     
-    private String filePath;
-    private String botName;
-    private String fileType;
-    private String uploader;
+    private String name;
     private MultipartFile file;
 
     public BotDTO(){}
 
-    public BotDTO(String theFilePath, String theBotName, String theFileType, 
-                    String theUploader, MultipartFile theFile){
-
-        filePath = theFilePath;
-        botName = theBotName;
-        fileType = theFileType;
-        uploader = theUploader;
+    public BotDTO(String theName, MultipartFile theFile){
+        name = theName;
         file = theFile;
     }
 
-    public String getFilePath() {
-        return filePath;
+    public String getName() {
+        return name;
     }
-    public void setFilePath(String theFilePath) {
-        filePath = theFilePath;
-    }
-    public String getBotName() {
-        return botName;
-    }
-    public void setBotName(String theBotName) {
-        botName = theBotName;
-    }
-    public String getFileType() {
-        return fileType;
-    }
-    public void setFileType(String theFileType) {
-        fileType = theFileType;
-    }
-    public String getUploader() {
-        return uploader;
-    }
-    public void setUploader(String theUploader) {
-        uploader = theUploader;
+    public void setName(String theName) {
+        name = theName;
     }
     public MultipartFile getFile(){
         return file;
+    }
+    public void setFile(MultipartFile theFile){
+        file = theFile;
+    }
+
+    @Override
+    public String toString() {
+        return "BotDTO{name='" + name + "', file=" + (file != null ? file.getOriginalFilename() : "null") + "}";
     }
 }
