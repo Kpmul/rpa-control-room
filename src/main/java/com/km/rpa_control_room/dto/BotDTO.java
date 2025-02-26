@@ -29,6 +29,6 @@ public class BotDTO {
 
     @Override
     public String toString() {
-        return "BotDTO{name='" + name + "', file=" + (file != null ? file.getOriginalFilename() : "null") + "}";
+        return "BotDTO{'Name: '" + name +"file= " + (file != null ? file.getOriginalFilename() : "null") + "}";
     }
 }
