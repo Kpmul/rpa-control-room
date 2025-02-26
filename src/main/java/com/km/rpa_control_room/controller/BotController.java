@@ -21,17 +21,20 @@ import org.springframework.web.multipart.MultipartFile;
 import com.km.rpa_control_room.dto.BotDTO;
 import com.km.rpa_control_room.entity.Bot;
 import com.km.rpa_control_room.service.BotService;
+import com.km.rpa_control_room.service.FileService;
 
 @RestController
 public class BotController{
 
     private final BotService botService;
+    private final FileService fileService;
 
     private static final String BOT_STORAGE_DIRECTORY = System.getProperty("user.home") + "/Desktop/bot-storage/";
 
     @Autowired
-    public BotController(BotService theBotService){
+    public BotController(BotService theBotService, FileService theFileService){
         botService = theBotService;
+        fileService = theFileService;
     }
 
     @GetMapping("/home")
@@ -50,11 +53,9 @@ public class BotController{
     @PostMapping("/upload")
     public ResponseEntity<String> uploadBot(@ModelAttribute BotDTO botDTO){
 
-        System.out.println("Have received the request " + botDTO);
-
         MultipartFile theFile = botDTO.getFile();
 
-        if(theFile == null){
+        if(!fileService.fileExists(theFile)){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("File is empty!");
         }
 
