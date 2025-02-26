@@ -2,7 +2,6 @@ package com.km.rpa_control_room.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -79,8 +79,45 @@ public class BotController{
         return ResponseEntity.status(HttpStatus.ACCEPTED).body("Bot uploaded");
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<String> editBot(@PathVariable("id") Long theId, @ModelAttribute BotDTO botDTO){
+    @PutMapping("/{id}/file")
+    public ResponseEntity<String> editBot(@PathVariable("id") Long theId, @RequestParam("file") MultipartFile file){
+
+        Bot dbBot = botService.findById(theId);
+
+        if(file == null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Bot not found!");
+        }
+
+        File fileToDelete = new File(dbBot.getFilePath());
+
+        if(!fileToDelete.delete()){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Couldn't delete old file!");
+        }
+
+        String originalFileName = file.getOriginalFilename();
+
+        String filePath = BOT_STORAGE_DIRECTORY + originalFileName;
+
+        try{
+            file.transferTo(new File(filePath));
+        }
+        catch(IOException ioe){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload file");   
+        }
+
+        String fileType = originalFileName.substring(originalFileName.lastIndexOf(".") + 1);
+
+        dbBot.setFileType(fileType);
+        dbBot.setFilePath(filePath);
+        dbBot.setUploadTime(LocalDateTime.now());
+
+        botService.save(dbBot);
+
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body("Bot successfully updated!");
+    }
+
+    @PutMapping("{id}/name")
+    public ResponseEntity<String> editBotName(@PathVariable("id") Long theId, @RequestParam("name") String name){
 
         Bot dbBot = botService.findById(theId);
 
@@ -88,38 +125,10 @@ public class BotController{
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Bot not found!");
         }
 
-        System.out.println(botDTO.getFile());
-
-        MultipartFile theFile = botDTO.getFile();
-
-        if(theFile != null){
-
-            String originalFileName = theFile.getOriginalFilename();
-
-            String filePath = BOT_STORAGE_DIRECTORY + originalFileName;
-
-            try{
-                theFile.transferTo(new File(filePath));
-            }
-            catch(IOException ioe){
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload file");   
-            }
-
-            String fileType = originalFileName.substring(originalFileName.lastIndexOf(".") + 1);
-
-            dbBot.setFileType(fileType);
-            dbBot.setFilePath(filePath);
-            dbBot.setUploadTime(LocalDateTime.now());
-        }
-
-        if(botDTO.getName() != null){
-
-            dbBot.setName(botDTO.getName());
-        }
-            
+        dbBot.setName(name);
         botService.save(dbBot);
 
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body("Bot successfully updated!");
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body("Bot name updated!");
     }
 
     @DeleteMapping("/{id}")
