@@ -8,14 +8,16 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.km.rpa_control_room.dto.BotDTO;
@@ -23,13 +25,15 @@ import com.km.rpa_control_room.entity.Bot;
 import com.km.rpa_control_room.service.BotService;
 import com.km.rpa_control_room.service.FileService;
 
-@RestController
+@Controller
 public class BotController{
 
     private final BotService botService;
     private final FileService fileService;
 
     private static final String BOT_STORAGE_DIRECTORY = System.getProperty("user.home") + "/Desktop/bot-storage/";
+
+    // @InitBinder
 
     @Autowired
     public BotController(BotService theBotService, FileService theFileService){
@@ -38,16 +42,23 @@ public class BotController{
     }
 
     @GetMapping("/home")
-    public String getHomepage(){
-        return "Welcome to the RPA Control Room";
+    public String getHomepage(Model model){
+
+        model.addAttribute("theDate",LocalDateTime.now());
+        model.addAttribute("pageType", "full");
+
+        return "home";
     }
 
     @GetMapping("/all")
-    public List<Bot> getAllBots(){
+    public String getAllBots(Model model){
+
+        model.addAttribute("theDate", LocalDateTime.now());
         
         List<Bot> bots = botService.findAll();
-        
-        return bots;
+        model.addAttribute("allBotsList", bots);
+
+        return "allbots";
     }
 
     @PostMapping("/upload")
