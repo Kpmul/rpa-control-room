@@ -53,12 +53,12 @@ public class BotController{
     @GetMapping("/all")
     public String getAllBots(Model model){
 
-        model.addAttribute("theDate", LocalDateTime.now());
+        model.addAttribute("pageType", "full");
         
         List<Bot> bots = botService.findAll();
         model.addAttribute("allBotsList", bots);
 
-        return "allbots";
+        return "all-bots";
     }
 
     @PostMapping("/upload")

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8" />
+    <title>All Current Bots</title>
+    <link rel="stylesheet" th:href="@{${pageType == 'full' ? '/css/bootstrap.min.css' : '/css/bootstrap.grid.css'}}" />
+
+</head>
+<body>
+    
+    <h1 class="mx-auto" style="width: 2000px;">
+        <small class="text-muted">Grant Thornton Control Room</small>
+        <hr>
+        <small class="text-muted">Showing all bots</small>
+    </h1>
+
+    <hr>
+
+    <div class="container-fluid">
+        <h2>All available bots</h2>
+        <table class="table table-bordered table-striped table-hover">
+            <caption>List of bots</caption>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>File Path</th>
+                    <th>File Type</th>
+                    <th>Upload Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="bot : ${allBotsList}">
+                    <td th:text="${bot.id}"></td>
+                    <td th:text="${bot.name}"></td>
+                    <td th:text="${bot.filePath}"></td>
+                    <td th:text="${bot.fileType}"></td>
+                    <td th:text="${bot.uploadTime}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
