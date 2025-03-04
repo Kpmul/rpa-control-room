@@ -61,13 +61,19 @@ public class BotController{
         return "all-bots";
     }
 
-    @PostMapping("/upload")
-    public ResponseEntity<String> uploadBot(@ModelAttribute BotDTO botDTO){
+    @GetMapping("/bots/upload")
+    public String showUploadForm(Model model){
+        model.addAttribute("botDTO", new BotDTO());
+        return "bot-upload";
+    }
+
+    @PostMapping("/bots/upload")
+    public String uploadBot(Model model, @ModelAttribute BotDTO botDTO){
 
         MultipartFile theFile = botDTO.getFile();
 
         if(!fileService.fileExists(theFile)){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("File is empty!");
+            model.addAttribute("error", "File is empty!");
         }
 
         String orginalFileName = theFile.getOriginalFilename();
@@ -79,7 +85,7 @@ public class BotController{
         try{
             theFile.transferTo(new File(filePath));
         }catch(IOException ioe){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload file");
+            model.addAttribute("error", "Failer to upload file!");
         }
 
         String fileType = orginalFileName.substring(orginalFileName.lastIndexOf(".") + 1);
@@ -88,7 +94,9 @@ public class BotController{
 
         botService.save(theBot);
 
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body("Bot uploaded");
+        model.addAttribute("bot", theBot);
+
+        return "bot-upload-success";
     }
 
     @PutMapping("/{id}/file")

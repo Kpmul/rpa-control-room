@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8" />
+    <title>Bot Upload Status</title>
+    <link rel="stylesheet" th:href="@{${pageType == 'full' ? '/css/bootstrap.min.css' : '/css/bootstrap.grid.css'}}" />
+
+</head>
+<body>
+    
+    <h1 class="mx-auto" style="width: 500px;">
+        <small class="text-muted">Bot Upload Success</small>
+    </h1>
+    
+    <h2>
+        <p>Bot Name:<span th:text="${bot.name}"></span></p>
+        <p>File Type:<span th:text="${bot.fileType}"></span></p>
+        <p>Stored At:<span th:text="${bot.filePath}"></span></p>
+        <p>Upload Time:<span th:text="${bot.uploadTime}"></span></p>
+    </h2>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8" />
+    <title>Control Room Upload</title>
+    <link rel="stylesheet" th:href="@{${pageType == 'full' ? '/css/bootstrap.min.css' : '/css/bootstrap.grid.css'}}" />
+
+</head>
+<body>
+    
+    <h1 class="mx-auto" style="width: 500px;">
+        <small class="text-muted">Upload Bot</small>
+    </h1>
+    
+    <form th:action="@{/bots/upload}" th:object="${botDTO}" method="post" enctype="multipart/form-data">
+        <label for="botFile">Select File:</label>
+        <input type="file" id="botFile" name="file" required />
+        <button type="submit">Upload</button>
+    </form>
+</body>
+</html>
