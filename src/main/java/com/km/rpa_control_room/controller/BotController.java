@@ -50,7 +50,7 @@ public class BotController{
         return "home";
     }
 
-    @GetMapping("/all")
+    @GetMapping("bots/all")
     public String getAllBots(Model model){
 
         model.addAttribute("pageType", "full");
