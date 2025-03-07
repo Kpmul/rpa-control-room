@@ -14,13 +14,20 @@
         <small class="text-muted">Grant Thornton Control Room</small>
     </h1>
 
-    <nav class="nav">
-        <a class="nav-link active" href="bots/all">Show all bots</a>
-        <a class="nav-link" href="#">Link</a>
-        <a class="nav-link disabled" href="#">Link</a>
-        <a class="nav-link disabled" href="#">Link</a>
-      </nav>
-    <hr>
+    <ul class="nav flex-column">
+        <li class="nav-item">
+          <a class="nav-link active" href="/bots/all">Show all bots</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#">Disabled</a>
+        </li>
+      </ul>
 
     <div class="container-fluid">
         <p th:text="'The date and time on the server is: ' + ${theDate}"></p>
