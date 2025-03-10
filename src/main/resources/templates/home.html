@@ -14,26 +14,27 @@
         <small class="text-muted">Grant Thornton Control Room</small>
     </h1>
 
-    <ul class="nav flex-column">
-        <li class="nav-item">
-          <a class="nav-link active" href="/bots/all">Show all bots</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#">Disabled</a>
-        </li>
-      </ul>
-
-    <div class="container-fluid">
-        <p th:text="'The date and time on the server is: ' + ${theDate}"></p>
-        <p th:text="'The date and time on the server is: ' + ${theDate}"></p>
-        <p th:text="'The date and time on the server is: ' + ${theDate}"></p>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-2">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link active" href="/bots/all">Show all bots</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#">Disabled</a>
+            </li>
+          </ul>  
+        </div>
+        <div class="col-sm-10">
+          <p th:text="'The date and time on the server is: ' + ${theDate}"></p>
+        </div>
     </div>
-    
 </body>
 </html>
