@@ -2,3 +2,12 @@
     background-image: linear-gradient(to bottom right, blue, purple);
 }
 
+body {
+    min-height: 800px;
+    border: 8px solid black;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
