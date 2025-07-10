@@ -12,7 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
+// import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,7 +26,7 @@ import com.km.rpa_control_room.service.BotService;
 import com.km.rpa_control_room.service.FileService;
 
 @Controller
-public class BotController{
+public class BotController {
 
     private final BotService botService;
     private final FileService fileService;
@@ -36,25 +36,25 @@ public class BotController{
     // @InitBinder
 
     @Autowired
-    public BotController(BotService theBotService, FileService theFileService){
+    public BotController(BotService theBotService, FileService theFileService) {
         botService = theBotService;
         fileService = theFileService;
     }
 
     @GetMapping("/home")
-    public String getHomepage(Model model){
+    public String getHomepage(Model model) {
 
-        model.addAttribute("theDate",LocalDateTime.now());
+        model.addAttribute("theDate", LocalDateTime.now());
         model.addAttribute("pageType", "full");
 
         return "home";
     }
 
     @GetMapping("/bots/all")
-    public String getAllBots(Model model){
+    public String getAllBots(Model model) {
 
         model.addAttribute("pageType", "full");
-        
+
         List<Bot> bots = botService.findAll();
         model.addAttribute("allBotsList", bots);
 
@@ -62,17 +62,17 @@ public class BotController{
     }
 
     @GetMapping("/bots/upload")
-    public String showUploadForm(Model model){
+    public String showUploadForm(Model model) {
         model.addAttribute("botDTO", new BotDTO());
         return "bot-upload";
     }
 
     @PostMapping("/bots/upload")
-    public String uploadBot(Model model, @ModelAttribute BotDTO botDTO){
+    public String uploadBot(Model model, @ModelAttribute BotDTO botDTO) {
 
         MultipartFile theFile = botDTO.getFile();
 
-        if(!fileService.fileExists(theFile)){
+        if (!fileService.fileExists(theFile)) {
             model.addAttribute("error", "File is empty!");
         }
 
@@ -82,14 +82,14 @@ public class BotController{
 
         String filePath = BOT_STORAGE_DIRECTORY + orginalFileName;
 
-        try{
+        try {
             theFile.transferTo(new File(filePath));
-        }catch(IOException ioe){
+        } catch (IOException ioe) {
             model.addAttribute("error", "Failer to upload file!");
         }
 
         String fileType = orginalFileName.substring(orginalFileName.lastIndexOf(".") + 1);
-        
+
         Bot theBot = new Bot(filePath, botName, fileType, LocalDateTime.now());
 
         botService.save(theBot);
@@ -100,17 +100,17 @@ public class BotController{
     }
 
     @PutMapping("/{id}/file")
-    public ResponseEntity<String> editBot(@PathVariable("id") Long theId, @RequestParam("file") MultipartFile file){
+    public ResponseEntity<String> editBot(@PathVariable("id") Long theId, @RequestParam("file") MultipartFile file) {
 
         Bot dbBot = botService.findById(theId);
 
-        if(file == null){
+        if (file == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Bot not found!");
         }
 
         File fileToDelete = new File(dbBot.getFilePath());
 
-        if(!fileToDelete.delete()){
+        if (!fileToDelete.delete()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Couldn't delete old file!");
         }
 
@@ -118,11 +118,10 @@ public class BotController{
 
         String filePath = BOT_STORAGE_DIRECTORY + originalFileName;
 
-        try{
+        try {
             file.transferTo(new File(filePath));
-        }
-        catch(IOException ioe){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload file");   
+        } catch (IOException ioe) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload file");
         }
 
         String fileType = originalFileName.substring(originalFileName.lastIndexOf(".") + 1);
@@ -137,11 +136,11 @@ public class BotController{
     }
 
     @PutMapping("{id}/name")
-    public ResponseEntity<String> editBotName(@PathVariable("id") Long theId, @RequestParam("name") String name){
+    public ResponseEntity<String> editBotName(@PathVariable("id") Long theId, @RequestParam("name") String name) {
 
         Bot dbBot = botService.findById(theId);
 
-        if(dbBot == null){
+        if (dbBot == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Bot not found!");
         }
 
@@ -152,11 +151,11 @@ public class BotController{
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteBot(@PathVariable("id") Long theId){
+    public ResponseEntity<String> deleteBot(@PathVariable("id") Long theId) {
 
         Bot dbBot = botService.findById(theId);
 
-        if(dbBot == null){
+        if (dbBot == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Bot not found!");
         }
 

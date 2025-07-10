@@ -18,8 +18,11 @@
     <hr>
 
     <div class="container">
+
       <div class="row">
-        <div class="col-sm-2">
+
+        <div class="col-lg-2 box">
+
           <ul class="nav flex-column">
             <li class="nav-item">
               <a class="nav-link active" href="/bots/all">Show all bots</a>
@@ -34,10 +37,16 @@
               <a class="nav-link disabled" href="#">Disabled</a>
             </li>
           </ul>  
+
         </div>
-        <div class="col-sm-10">
+
+        <div class="col-lg-10 box">
           <p th:text="'The date and time on the server is: ' + ${theDate}"></p>
         </div>
-    </div>
+
+      </div> 
+
+  </div>
+  
 </body>
 </html>
