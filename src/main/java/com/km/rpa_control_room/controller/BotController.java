@@ -18,10 +18,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.km.rpa_control_room.dto.BotDTO;
 import com.km.rpa_control_room.entity.Bot;
+import com.km.rpa_control_room.runner.BotRunner;
 import com.km.rpa_control_room.service.BotService;
 import com.km.rpa_control_room.service.FileService;
 
@@ -30,15 +32,26 @@ public class BotController {
 
     private final BotService botService;
     private final FileService fileService;
+    private final BotRunner botRunner;
 
     private static final String BOT_STORAGE_DIRECTORY = System.getProperty("user.home") + "/Desktop/bot-storage/";
 
     // @InitBinder
 
     @Autowired
-    public BotController(BotService theBotService, FileService theFileService) {
+    public BotController(BotService theBotService, FileService theFileService, BotRunner theBotRunner) {
         botService = theBotService;
         fileService = theFileService;
+        botRunner = theBotRunner;
+    }
+
+    @GetMapping("/run-test")
+    @ResponseBody
+    public String runTest() throws IOException, InterruptedException {
+
+        botRunner.runBot(2);
+
+        return "Test run!";
     }
 
     @GetMapping("/home")
