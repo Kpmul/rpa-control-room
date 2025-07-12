@@ -30,6 +30,9 @@
                 </tr>
             </thead>
             <tbody>
+                <tr th:if="${#lists.isEmpty(allBotsList)}">
+                    <td colspan="5" class="text-center">No bots found.</td>
+                </tr>
                 <tr th:each="bot : ${allBotsList}">
                     <td th:text="${bot.id}"></td>
                     <td th:text="${bot.name}"></td>
