@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.km.rpa_control_room.dto.BotDTO;
 import com.km.rpa_control_room.entity.Bot;
@@ -80,13 +81,21 @@ public class BotController {
         return "bot-upload";
     }
 
+    @GetMapping("/bots/upload-success")
+    public String showUploadSuccess() {
+        return "bot-upload-success";
+    }
+
     @PostMapping("/bots/upload")
-    public String uploadBot(Model model, @ModelAttribute BotDTO botDTO) {
+    public String uploadBot(Model model, @ModelAttribute BotDTO botDTO, RedirectAttributes redirectAttrs) {
+
+        model.addAttribute("pageType", "full");
 
         MultipartFile theFile = botDTO.getFile();
 
         if (!fileService.fileExists(theFile)) {
-            model.addAttribute("error", "File is empty!");
+            model.addAttribute("errorMessage", "File is empty!");
+            return "redirect:/bots/upload";
         }
 
         String orginalFileName = theFile.getOriginalFilename();
@@ -98,7 +107,8 @@ public class BotController {
         try {
             theFile.transferTo(new File(filePath));
         } catch (IOException ioe) {
-            model.addAttribute("error", "Failer to upload file!");
+            model.addAttribute("errorMessage", "Failed to upload file!");
+            return "redirect:/bots/upload";
         }
 
         String fileType = orginalFileName.substring(orginalFileName.lastIndexOf(".") + 1);
@@ -107,9 +117,11 @@ public class BotController {
 
         botService.save(theBot);
 
+        redirectAttrs.addFlashAttribute("successMessage", "Bot uploaded successfully!");
+
         model.addAttribute("bot", theBot);
 
-        return "bot-upload-success";
+        return "redirect:/bots/upload"; // Handle PRG problem (Post/Redirect/Get)
     }
 
     @PutMapping("/{id}/file")
