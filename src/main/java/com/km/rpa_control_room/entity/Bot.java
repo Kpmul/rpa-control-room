@@ -91,9 +91,18 @@ public class Bot {
         uploadTime = theUploadTime;
     }
 
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
     @Override
     public String toString() {
         return "Bot [id=" + id + ", filePath=" + filePath + ", name=" + name + ", fileType=" + fileType
                 + "uploadTime=" + uploadTime;
     }
+
 }
