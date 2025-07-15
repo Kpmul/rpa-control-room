@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -23,6 +24,6 @@ public class Client {
    @Column(name = "vm_address")
    private String vmAddress;
 
-   @Column(name = "bots")
+   @OneToMany(mappedBy = "client")
    private List<Bot> bots;
 }
