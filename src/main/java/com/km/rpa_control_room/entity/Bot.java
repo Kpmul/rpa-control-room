@@ -104,5 +104,4 @@ public class Bot {
         return "Bot [id=" + id + ", filePath=" + filePath + ", name=" + name + ", fileType=" + fileType
                 + "uploadTime=" + uploadTime;
     }
-
 }

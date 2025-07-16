@@ -44,6 +44,10 @@
           <p th:text="'The date and time on the server is: ' + ${theDate}"></p>
         </div>
 
+        <form th:action="@{/create-client}" method="post">
+          <button type="submit" class="btn btn-primary">Create Client</button>
+        </form>
+
       </div> 
 
   </div>
