@@ -1,5 +1,10 @@
 package com.km.rpa_control_room.service;
 
-public class ClientService {
-   
+import java.util.List;
+
+import com.km.rpa_control_room.entity.Client;
+
+public interface ClientService {
+
+   List<Client> findAll();
 }
