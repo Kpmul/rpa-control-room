@@ -14,10 +14,6 @@ public class BotServiceImpl implements BotService {
 
     private BotRepository botRepository;
 
-    public void setBotRepository(BotRepository theBotRepository){
-        botRepository = theBotRepository;
-    }
-
     @Autowired
     public BotServiceImpl(BotRepository theBotRepository){
         botRepository = theBotRepository;

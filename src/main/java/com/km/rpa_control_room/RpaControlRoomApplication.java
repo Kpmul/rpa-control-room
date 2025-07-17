@@ -16,7 +16,9 @@ public class RpaControlRoomApplication {
 	public CommandLineRunner commandLineRunner(String[] args){
 
 		return runner -> {
-			System.out.println("App running...");
+			
+
+
 		};
 	}
 }
