@@ -33,3 +33,7 @@
 .card-container {
     margin-top: 4rem;
 }
+
+.home-background {
+    background: linear-gradient(150deg, #f5f0e1 0%, #bcb3c3 70%);
+}
