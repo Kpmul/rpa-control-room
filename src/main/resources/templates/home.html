@@ -34,7 +34,7 @@
               <a class="nav-link disabled" href="#">Edit Bot</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link disabled" href="#">Disabled</a>
+              <a class="nav-link active" href="/clients/all">Clients</a>
             </li>
           </ul>  
 
@@ -43,10 +43,6 @@
         <div class="col-lg-10 box">
           <p th:text="'The date and time on the server is: ' + ${theDate}"></p>
         </div>
-
-        <form th:action="@{/create-client}" method="post">
-          <button type="submit" class="btn btn-primary">Create Client</button>
-        </form>
 
       </div> 
 

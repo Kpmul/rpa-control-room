@@ -6,6 +6,7 @@ import java.util.List;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -26,9 +27,18 @@ public class Client {
       @Column(name = "vm_address")
       private String vmAddress;
 
-      @OneToMany(mappedBy = "client", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH,
+      @OneToMany(mappedBy = "client", fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE,
+                  CascadeType.DETACH,
                   CascadeType.REFRESH })
       private List<Bot> bots;
+
+      public Client() {
+      }
+
+      public Client(String name, String vmAddress) {
+            this.name = name;
+            this.vmAddress = vmAddress;
+      }
 
       public Long getId() {
             return id;
@@ -67,7 +77,7 @@ public class Client {
             return "Client [id=" + id + ", name=" + name + ", vmAddress=" + vmAddress + "]";
       }
 
-      public void set(Bot tempBot) {
+      public void addBot(Bot tempBot) {
 
             if (bots == null) {
                   bots = new ArrayList<>();

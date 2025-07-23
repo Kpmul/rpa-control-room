@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8" />
+    <title>All Current Clients</title>
+    <link rel="stylesheet" th:href="@{${pageType == 'full' ? '/css/bootstrap.min.css' : '/css/bootstrap.grid.css'}}" />
+
+</head>
+<body>
+    
+    <h1 class="mx-auto" style="width: 500px;">
+        <small class="text-muted">Grant Thornton Control Room</small>
+    </h1>
+
+    <hr>
+
+    <div class="container-fluid">
+        <h2>All available clients</h2>
+        <table class="table table-bordered table-striped table-hover">
+            <caption>List of clients</caption>
+            <thead>
+                <tr>
+                     <th>ID</th>
+                     <th>Name</th>
+                     <th>Vm Address</th>
+                     <th>Bots</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:if="${#lists.isEmpty(allClientsList)}">
+                    <td colspan="5" class="text-center">No clients found.</td>
+                </tr>
+                <tr th:each="client : ${allClientsList}">
+                    <td th:text="${client.id}"></td>
+                    <td th:text="${client.name}"></td>
+                    <td th:text="${client.vmAddress}"></td>
+                    <td>
+                        <ul style="list-style: none;">
+                           <li th:each="bot : ${client.bots}" th:text="${bot.name}"></li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

@@ -8,5 +8,5 @@ import com.km.rpa_control_room.entity.Client;
 
 public interface ClientRepository extends JpaRepository<Client, Long> {
 
-   public List<Client> findAllByName();
+   public List<Client> findAllByOrderByName();
 }
