@@ -10,3 +10,26 @@
     align-items: center;
 }
 
+.card-img.top {
+    max-height: 150px;
+    object-fit: contain;
+    padding: 1rem;
+    background-color: #f5f0e1;
+}
+
+.card {
+    transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+    font-size: 1.5rem;
+}
+
+.card-container {
+    margin-top: 4rem;
+}

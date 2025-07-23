@@ -14,39 +14,33 @@
     <h1 class="mx-auto" style="width: 500px;">
         <small class="text-muted">Grant Thornton Control Room</small>
     </h1>
-
     <hr>
-
-    <div class="container">
-
-      <div class="row">
-
-        <div class="col-lg-2 box">
-
-          <ul class="nav flex-column">
-            <li class="nav-item">
-              <a class="nav-link active" href="/bots/all">Show all bots</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="/bots/upload">Upload Bot</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#">Edit Bot</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="/clients/all">Clients</a>
-            </li>
-          </ul>  
-
+    <div class="container text-center">
+        
+        <div class="row justify-content-center card-container">
+            <!-- Clients Card -->
+            <div class="col-md-5 mb-4">
+                <div class="card">
+                    <img src="/images/client-icon.png" class="card-img-top" alt="Clients Icon">
+                    <div class="card-body">
+                        <h5 class="card-title">Clients</h5>
+                        <p class="card-text">Manage or view all registered clients.</p>
+                        <a th:href="@{/clients/all}" class="btn btn-primary">Go to Clients</a>
+                    </div>
+                </div>
+            </div>  
+            <!-- Bots Card -->
+            <div class="col-md-5 mb-4">
+                <div class="card">
+                    <img src="/images/bot-icon.png" class="card-img-top" alt="Bots Icon">
+                    <div class="card-body">
+                        <h5 class="card-title">Bots</h5>
+                        <p class="card-text">Upload, view, or manage automation bots.</p>
+                        <a th:href="@{/bots/all}" class="btn btn-primary">Go to Bots</a>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <div class="col-lg-10 box">
-          <p th:text="'The date and time on the server is: ' + ${theDate}"></p>
-        </div>
-
-      </div> 
-
-  </div>
-  
+    </div>
 </body>
 </html>
