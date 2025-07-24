@@ -1,5 +1,13 @@
-.funk {
-    background-image: linear-gradient(to bottom right, blue, purple);
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: #445e78;
+}
+
+.home-title {
+    color: #3498DB;
 }
 
 .box {
@@ -11,14 +19,16 @@
 }
 
 .card-img.top {
-    max-height: 150px;
+    max-height: 80px;
     object-fit: contain;
     padding: 1rem;
     background-color: #f5f0e1;
 }
 
 .card {
-    transition: transform 0.2s ease-in-out;
+    width: 200px;
+    height: 350px;
+    transition: transform 0.5s ease-in-out;
 }
 
 .card:hover {
@@ -31,9 +41,11 @@
 }
 
 .card-container {
-    margin-top: 4rem;
+    margin-top: 2rem;
 }
 
-.home-background {
-    background: linear-gradient(150deg, #f5f0e1 0%, #bcb3c3 70%);
-}
+/* Primary: Coral #FF6B6B
+Accent: Peach #FFDAB9
+Background: Ivory #FFF8F0
+Text: Warm Gray #3C3C3C
+CTA/Highlight: Olive #6B8E23 */

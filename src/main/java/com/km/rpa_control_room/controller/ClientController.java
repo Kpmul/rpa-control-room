@@ -20,6 +20,14 @@ public class ClientController {
       clientService = theClientService;
    }
 
+   @GetMapping("/clients")
+   public String getClientPage(Model model) {
+
+      model.addAttribute("pageType", "full");
+
+      return "clients";
+   }
+
    @GetMapping("/clients/all")
    public String getAllClients(Model model) {
 

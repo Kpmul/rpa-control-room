@@ -13,31 +13,31 @@
 <body class="home-background">
 
   <h1 class="mx-auto" style="width: 500px;">
-    <small class="text-muted">Grant Thornton Control Room</small>
+    <small class="home-title">Grant Thornton Control Room</small>
   </h1>
   <hr>
   <div class="container text-center">
 
     <div class="row justify-content-center card-container">
       <!-- Clients Card -->
-      <div class="col-md-5 mb-4">
+      <div class="col-md-2 mb-4">
         <div class="card">
           <img src="/images/client-icon.png" class="card-img-top" alt="Client Icon">
           <div class="card-body">
             <!-- <h5 class="card-title">Clients</h5>  -->
             <p class="card-text">Manage or view all registered clients</p>
-            <a th:href="@{/clients/all}" class="btn btn-primary">Client Hub</a>
+            <a th:href="@{/clients}" class="btn btn-primary">Client Hub</a>
           </div>
         </div>
       </div>
       <!-- Bots Card -->
-      <div class="col-md-5 mb-4">
+      <div class="col-md-2 mb-4">
         <div class="card">
-          <img src="/images/bot-icon.png" class="card-img-top" alt="Bot Icon">
+          <img src="/images/bot-icon.png" class="card-img-top" alt="Bo    t Icon">
           <div class="card-body">
             <!-- <h5 class="card-title">Bots</h5>  -->
             <p class="card-text">Upload, view, or manage automation bots</p>
-            <a th:href="@{/bots/all}" class="btn btn-primary">Bot Workshop</a>
+            <a th:href="@{/bots}" class="btn btn-primary">Bot Workshop</a>
           </div>
         </div>
       </div>
